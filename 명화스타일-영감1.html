@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>명화로 책 그리기 — 스타일·이야기 배경</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b3d91;
+      --blue: #1a5fb4;
+      --blue-mid: #3d7dd6;
+      --blue-soft: #e8f1fb;
+      --blue-pale: #f4f8fd;
+      --ink: #1a2b3c;
+      --ink-soft: #4a5d72;
+      --white: #ffffff;
+      --line: #c5d6eb;
+      --shadow: rgba(11, 61, 145, 0.1);
+      --radius: 14px;
+      --font-display: "Gowun Dodum", sans-serif;
+      --font-body: "Noto Sans KR", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 1.6;
+      background: linear-gradient(180deg, #dceaf8 0%, var(--blue-pale) 28%, #ffffff 70%);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.25rem 3.5rem;
+    }
+
+    /* —— Top nav —— */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244, 248, 253, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      margin: 0 -1.25rem;
+      padding: 0.7rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+    }
+
+    .top-nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-right: auto;
+      text-decoration: none;
+    }
+
+    .top-nav a.nav-link {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+    }
+
+    .top-nav a.nav-link:hover,
+    .top-nav a.nav-link:focus-visible {
+      color: var(--navy);
+      background: var(--blue-soft);
+      border-color: var(--line);
+      outline: none;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .cta.cta-secondary {
+      background: var(--white);
+      color: var(--navy);
+      border: 1.5px solid var(--navy);
+    }
+
+    .cta.cta-secondary:hover {
+      background: var(--blue-soft);
+    }
+
+    /* —— Background prompts —— */
+    .bg-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .bg-tab {
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 0.45rem 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .bg-tab:hover,
+    .bg-tab:focus-visible {
+      border-color: var(--blue);
+      color: var(--navy);
+      outline: none;
+    }
+
+    .bg-tab.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    .bg-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .bg-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .bg-card {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem 1.1rem;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+
+    .bg-card-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+
+    .bg-card-desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.85rem;
+    }
+
+    .bg-card .prompt-block {
+      margin-bottom: 0.65rem;
+    }
+
+    .bg-card .prompt-block:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* —— Hero —— */
+    .hero {
+      padding: 2.75rem 0 2rem;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--blue-soft);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5.5vw, 2.85rem);
+      color: var(--navy);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+    }
+
+    .brand span {
+      color: var(--blue);
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--ink-soft);
+      max-width: 36em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      list-style: none;
+    }
+
+    @media (min-width: 640px) {
+      .hero-thumbs {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.6rem;
+      }
+    }
+
+    .hero-thumb {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--white);
+      box-shadow: 0 2px 8px var(--shadow);
+      background: var(--blue-soft);
+      padding: 0;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+    }
+
+    .hero-thumb:hover,
+    .hero-thumb:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--blue);
+      box-shadow: 0 6px 16px var(--shadow);
+      outline: none;
+    }
+
+    .hero-thumb img,
+    .hero-thumb .card-placeholder {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-thumb .card-placeholder span {
+      font-size: 0.7rem;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--navy);
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem 1.35rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .cta:hover {
+      background: var(--blue);
+      transform: translateY(-1px);
+    }
+
+    /* —— Section —— */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.45rem, 3.5vw, 1.85rem);
+      margin: 2.25rem 0 0.35rem;
+      color: var(--navy);
+    }
+
+    .section-sub {
+      color: var(--ink-soft);
+      margin-bottom: 1.25rem;
+      font-size: 0.98rem;
+    }
+
+    /* —— Gallery —— */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      list-style: none;
+    }
+
+    @media (min-width: 560px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 860px) {
+      .gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .style-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      border: 1.5px solid var(--line);
+      box-shadow: 0 2px 10px var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      width: 100%;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .style-card:hover,
+    .style-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--navy);
+      box-shadow: 0 8px 22px var(--shadow);
+      outline: none;
+    }
+
+    .thumb-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      background: var(--blue-soft);
+      overflow: hidden;
+    }
+
+    .card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-placeholder {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-placeholder span {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    /* Style placeholders */
+    .ph-vangogh {
+      background:
+        radial-gradient(circle at 70% 25%, #f1c40f 0 6%, transparent 7%),
+        radial-gradient(circle at 40% 40%, transparent 30%, #1a3a6b 31%),
+        repeating-linear-gradient(45deg, #2e5a9e, #2e5a9e 8px, #3d6eb0 8px, #3d6eb0 16px);
+    }
+    .ph-monet {
+      background: linear-gradient(160deg, #a8d5e5, #f0d5a8 40%, #7eb8c9 70%, #c5e0b4);
+    }
+    .ph-matisse {
+      background:
+        linear-gradient(90deg, #e74c3c 0 33%, #f39c12 33% 66%, #2980b9 66%);
+    }
+    .ph-seurat {
+      background:
+        radial-gradient(circle, #5a8f6e 1.5px, transparent 2px) 0 0 / 8px 8px,
+        radial-gradient(circle, #f0c14b 1.5px, transparent 2px) 4px 4px / 8px 8px,
+        #d4e8d0;
+    }
+    .ph-cubism {
+      background:
+        linear-gradient(135deg, #e8d5a3 0 30%, transparent 30%),
+        linear-gradient(225deg, #8b7355 0 35%, transparent 35%),
+        linear-gradient(45deg, #c4a35a 0 40%, transparent 40%),
+        linear-gradient(315deg, #5c4033 20%, #d4c4a8 50%, #a08060 80%);
+    }
+    .ph-klimt {
+      background:
+        repeating-linear-gradient(60deg, #d4a017, #d4a017 6px, #f0d878 6px, #f0d878 12px),
+        #8b6914;
+    }
+    .ph-hokusai {
+      background:
+        radial-gradient(ellipse at 50% 120%, #fff 0 20%, transparent 21%),
+        linear-gradient(180deg, #87ceeb 0 35%, #1a5276 35% 75%, #f5e6c8 75%);
+    }
+    .ph-dream {
+      background:
+        radial-gradient(circle at 30% 40%, #ff6b9d 0%, transparent 40%),
+        radial-gradient(circle at 70% 30%, #7ec8e3 0%, transparent 35%),
+        linear-gradient(160deg, #5b4a8a, #2d1f4e);
+    }
+    .ph-rousseau {
+      background:
+        repeating-linear-gradient(0deg, #1b4332 0 4px, #2d6a4f 4px 10px),
+        #40916c;
+    }
+    .ph-gauguin {
+      background: linear-gradient(135deg, #c45c26, #e8a838 40%, #2d6a4f 70%, #1a5276);
+    }
+    .ph-sumuk {
+      background:
+        linear-gradient(180deg, #f5f5f0 0%, #e8e6df 100%);
+    }
+    .ph-sumuk::before {
+      content: "";
+      position: absolute;
+      inset: 18% 20% 30% 15%;
+      background:
+        radial-gradient(ellipse at 40% 60%, #3a3a3a 0%, transparent 55%),
+        linear-gradient(160deg, transparent 40%, #555 41% 43%, transparent 44%);
+      opacity: 0.55;
+    }
+    .ph-sumuk span { color: #333; text-shadow: none; }
+    .ph-minhwa {
+      background:
+        radial-gradient(circle at 70% 35%, #f1c40f 0 12%, transparent 13%),
+        linear-gradient(180deg, #5dade2 0 45%, #27ae60 45% 70%, #f5e6c8 70%);
+    }
+    .ph-minhwa::after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 55px;
+      left: 18%;
+      bottom: 18%;
+      background: #c0392b;
+      border-radius: 50% 50% 40% 40%;
+      box-shadow: 40px -15px 0 -12px #2c3e50;
+    }
+
+    .card-body {
+      padding: 0.85rem 1rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .card-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .card-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .card-hint {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+
+    /* —— Tips —— */
+    .tips {
+      margin-top: 2.5rem;
+      padding: 1.5rem 1.35rem;
+      background: var(--blue-soft);
+      border-radius: var(--radius);
+      border-left: 5px solid var(--navy);
+    }
+
+    .tips h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 0.55rem;
+    }
+
+    .tips ul {
+      padding-left: 1.25rem;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .tips li { margin-bottom: 0.35rem; }
+
+    .tips strong {
+      color: var(--navy);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2.25rem;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    /* —— Modal —— */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 61, 145, 0.45);
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (min-width: 640px) {
+      .modal-backdrop {
+        align-items: center;
+        padding: 1.5rem;
+      }
+    }
+
+    .modal {
+      background: var(--white);
+      width: 100%;
+      max-width: 620px;
+      max-height: 92vh;
+      overflow-y: auto;
+      border-radius: 16px 16px 0 0;
+      padding: 0 0 1.35rem;
+      transform: translateY(40px);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 -8px 40px rgba(11, 61, 145, 0.2);
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .modal {
+        border-radius: 16px;
+      }
+    }
+
+    .modal-hero {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: var(--blue-soft);
+      overflow: hidden;
+    }
+
+    .modal-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-hero .card-placeholder {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.95);
+      font-size: 1.35rem;
+      color: var(--navy);
+      cursor: pointer;
+      box-shadow: 0 2px 8px var(--shadow);
+      line-height: 1;
+      z-index: 2;
+    }
+
+    .modal-close:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .modal-content {
+      padding: 1.15rem 1.3rem 0;
+    }
+
+    .modal-artist {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      color: var(--navy);
+      margin-bottom: 0.15rem;
+    }
+
+    .modal-work {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .modal-desc,
+    .modal-why {
+      margin-bottom: 0.9rem;
+      font-size: 0.98rem;
+    }
+
+    .modal-why {
+      background: var(--blue-soft);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+
+    .modal-why strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--navy);
+    }
+
+    .prompts-label {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin: 1.1rem 0 0.7rem;
+    }
+
+    .prompt-block {
+      background: var(--blue-pale);
+      border-radius: 10px;
+      padding: 0.9rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--line);
+    }
+
+    .prompt-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 0.35rem;
+    }
+
+    .prompt-text {
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      margin-bottom: 0.7rem;
+      color: var(--ink);
+    }
+
+    .copy-btn {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.05rem;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .copy-btn:hover {
+      background: var(--blue);
+    }
+
+    .copy-btn.copied {
+      background: var(--blue-mid);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.7rem 1.3rem;
+      border-radius: 10px;
+      z-index: 200;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s;
+      pointer-events: none;
+      box-shadow: 0 8px 24px rgba(11, 61, 145, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top-nav" aria-label="주요 메뉴">
+      <a class="top-nav-brand" href="#">명화로 책 그리기</a>
+      <a class="nav-link" href="#gallery">명화 스타일</a>
+      <a class="nav-link" href="#bg-prompts">이야기배경 이미지 만들기</a>
+      <a class="nav-link" href="#char-prompts">캐릭터만들기</a>
+    </nav>
+
+    <header class="hero">
+      <p class="hero-badge">초등 그림책 · 명화 · 배경 · 캐릭터</p>
+      <h1 class="brand">명화로 <span>책</span> 그리기</h1>
+      <p class="hero-lead">
+        명화 스타일, 글씨가 돋보이는 이야기 배경, 다각도 캐릭터 시트를 만들어 보세요.
+        교실과 집에서 이야기책을 만들 때 쓸 수 있는 교육용 안내입니다.
+      </p>
+      <div class="hero-thumbs" id="hero-thumbs" role="list" aria-label="스타일 미리보기"></div>
+      <div class="hero-actions">
+        <a class="cta" href="#gallery">명화 스타일 보기 ↓</a>
+        <a class="cta cta-secondary" href="#bg-prompts">이야기배경 만들기 ↓</a>
+        <a class="cta cta-secondary" href="#char-prompts">캐릭터만들기 ↓</a>
+      </div>
+    </header>
+
+    <section id="gallery" aria-labelledby="gallery-title">
+      <h2 class="section-title" id="gallery-title">명화 스타일 골라보기</h2>
+      <p class="section-sub">카드를 누르면 설명과 프롬프트가 나와요.</p>
+      <div class="gallery" id="gallery-grid" role="list"></div>
+    </section>
+
+    <section id="bg-prompts" aria-labelledby="bg-title">
+      <h2 class="section-title" id="bg-title">이야기배경 이미지 만들기</h2>
+      <p class="section-sub">채도와 명도를 낮춰, 위에 올린 글씨가 잘 보이는 배경 프롬프트예요. 종류를 골라 보세요.</p>
+      <div class="bg-tabs" id="bg-tabs" role="tablist" aria-label="배경 종류"></div>
+      <div class="bg-grid" id="bg-grid" role="tabpanel"></div>
+    </section>
+
+    <section id="char-prompts" aria-labelledby="char-title">
+      <h2 class="section-title" id="char-title">캐릭터만들기</h2>
+      <p class="section-sub">스타일을 고르면, 다각도 캐릭터 디자인 시트(정면 상반신·앞전신·뒷전신·옆전신) 프롬프트 2장이 나와요. 글씨·소품 없음.</p>
+      <div class="bg-tabs" id="char-tabs" role="tablist" aria-label="캐릭터 스타일"></div>
+      <div class="bg-grid" id="char-grid" role="tabpanel"></div>
+    </section>
+
+    <section class="tips" aria-labelledby="tips-title">
+      <h2 id="tips-title">이렇게 써 보세요</h2>
+      <ul>
+        <li>프롬프트에서 <strong>등장인물·장소·기분</strong>만 바꿔도 새 장면이 됩니다.</li>
+        <li>“토끼가 → 내 주인공이”처럼 <strong>내 이야기 이름</strong>으로 바꿔 보세요.</li>
+        <li>한 책에 <strong>같은 화가 스타일</strong>을 쓰면 그림이 더 잘 어울려요.</li>
+        <li>배경은 <strong>낮은 채도·낮은 명도</strong>로 두고, 글씨는 밝은색이나 진한색으로 올려 보세요.</li>
+        <li>캐릭터 시트는 <strong>흰 배경 · 네 각도 · 글씨 없음 · 소품 없음</strong>을 유지해 보세요.</li>
+        <li>마음에 드는 문장만 골라도 괜찮아요!</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>교육용 자료 · 퍼블릭 도메인 명화 참고 · 교실·집에서 자유롭게 써 보세요</p>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal" id="modal">
+      <div class="modal-hero" id="modal-hero-media">
+        <button type="button" class="modal-close" id="modal-close" aria-label="닫기">×</button>
+      </div>
+      <div class="modal-content">
+        <h2 class="modal-artist" id="modal-title"></h2>
+        <p class="modal-work" id="modal-work"></p>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div class="modal-why" id="modal-why"></div>
+        <h3 class="prompts-label">책 그림 프롬프트</h3>
+        <div id="modal-prompts"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">복사됐어요!</div>
+
+  <script>
+    const styles = [
+      {
+        id: "vangogh",
+        name: "반 고흐",
+        work: "별이 빛나는 밤",
+        hint: "소용돌이 붓터치, 반짝이는 밤",
+        desc: "물감을 두툼하게 바르고, 하늘이 빙글빙글 돌아가는 듯한 그림이에요. 파랑과 노랑이 특히 유명해요.",
+        why: "밤 장면, 별, 들판, 감정이 큰 장면에 잘 맞아요.",
+        color: "#3d6ea5",
+        placeholder: "vangogh",
+        image: "images/vangogh.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 토끼가 달빛 아래 책을 읽는 장면, 빈센트 반 고흐 스타일, 소용돌이치는 붓터치, 진한 파란색과 노란색, 따뜻하고 호기심 가득한 분위기, 밝은 색감",
+          "어린이 그림책 삽화, 친구들이 언덕에서 별을 세는 장면, 반 고흐처럼 두툼한 붓터치와 구불구불한 하늘, 노란 별빛, 희망찬 분위기",
+          "어린이 그림책 삽화, 노란 해바라기 밭을 걸어가는 아이, 반 고흐 스타일, 굵은 붓질, 생생한 노란색과 초록색, 밝고 활기찬 느낌"
+        ]
+      },
+      {
+        id: "monet",
+        name: "모네",
+        work: "수련",
+        hint: "부드러운 빛, 흐릿한 색점",
+        desc: "멀리서 보면 예쁘고, 가까이 보면 색점이 모여 있어요. 햇빛이 물에 반짝이는 느낌을 잘 그려요.",
+        why: "정원, 연못, 아침·저녁 풍경처럼 부드러운 장면에 좋아요요.",
+        color: "#7eb8c9",
+        placeholder: "monet",
+        image: "images/monet.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 연못 위 수련과 작은 배, 클로드 모네 인상주의 스타일, 부드러운 빛, 흐릿한 색점, 고요하고 포근한 분위기",
+          "어린이 그림책 삽화, 아침 안개 속 다리를 건너는 고양이, 모네 스타일, 파스텔톤 색점, 은은한 햇살, 평화로운 느낌",
+          "어린이 그림책 삽화, 정원에서 꽃을 찾는 아이, 인상주의, 모네처럼 부드러운 붓터치, 연한 분홍·초록·하늘색, 따뜻한 오후"
+        ]
+      },
+      {
+        id: "matisse",
+        name: "마티스",
+        work: "모자를 쓴 여인",
+        hint: "밝고 단순한 색면",
+        desc: "복잡한 그림자 대신, 밝고 큰 색덩어리로 그림을 만들어요. 종이 오리기처럼 단순한 모양도 유명해요.",
+        why: "표지, 축제, 신나는 장면에 색이 톡톡 튀게 좋아요.",
+        color: "#e85d4c",
+        placeholder: "matisse",
+        image: "images/matisse.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 춤추는 친구들, 앙리 마티스 스타일, 밝고 단순한 색면, 대담한 원색, 기쁨이 넘치는 분위기, 깔끔한 구성",
+          "어린이 그림책 삽화, 바다와 배가 있는 창가, 마티스처럼 평평한 색면과 단순한 형태, 파랑·주황·초록, 경쾌한 느낌",
+          "어린이 그림책 삽화, 종이 오리기 같은 꽃과 새, 마티스 컷아웃 스타일, 강한 실루엣, 원색 대비, 밝고 재미있는 그림책 표지"
+        ]
+      },
+      {
+        id: "seurat",
+        name: "쇠라",
+        work: "그랑드 자트 섬의 일요일 오후",
+        hint: "점으로 그린 그림(점묘)",
+        desc: "작은 색점을 촘촘히 찍어서 그림을 만들어요. 멀리서 보면 점이 합쳐져 하나의 색처럼 보여요.",
+        why: "공원, 소풍, 반짝이는 물·모래 장면에 잘 어울려요.",
+        color: "#5a8f6e",
+        placeholder: "seurat",
+        image: "images/seurat.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 공원에서 소풍하는 가족, 조르주 쇠라 점묘법 스타일, 작은 색점으로 이루어진 그림, 밝은 오후 햇살, 평화로운 분위기",
+          "어린이 그림책 삽화, 강가에서 낚시하는 아이, 점묘화, 쇠라처럼 점으로 그린 물결과 하늘, 산뜻한 파스텔 색, 여유로운 느낌",
+          "어린이 그림책 삽화, 반짝이는 모래사장과 조개, 점묘법 스타일, 촘촘한 색점, 햇빛이 흩어지는 듯한 반짝임, 호기심 많은 분위기"
+        ]
+      },
+      {
+        id: "picasso",
+        name: "피카소",
+        work: "늙은 기타 연주자",
+        hint: "여러 각도에서 본 듯한 모양",
+        desc: "사람을 앞에서 본 얼굴과 옆얼굴을 한 그림에 넣기도 해요. 도형처럼 나누어 그리는 재미가 있어요.",
+        why: "수수께끼, 변신, ‘다른 눈으로 보기’ 같은 이야기에 좋아요.",
+        color: "#c4a35a",
+        placeholder: "cubism",
+        image: "images/picasso.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 여러 각도에서 본 듯한 고양이 얼굴, 파블로 피카소 큐비즘 스타일, 도형으로 나뉜 형태, 밝은 파스텔 색, 장난스럽고 똑똑한 분위기, 아이들에게 친근하게",
+          "어린이 그림책 삽화, 악기를 연주하는 아이, 큐비즘, 피카소처럼 면을 나누어 그린 구성, 따뜻한 색, 리듬감 있는 장면",
+          "어린이 그림책 삽화, 거울 나라의 친구, 피카소 스타일 기하학적 얼굴, 대담한 선과 색면, 신기하고 재미있는 분위기"
+        ]
+      },
+      {
+        id: "klimt",
+        name: "클림트",
+        work: "키스 · 황금 장식",
+        hint: "황금빛 무늬, 반짝이는 장식",
+        desc: "금빛 무늬와 화려한 패턴으로 그림을 꾸며요. 사람 주변이 보석처럼 반짝여요.",
+        why: "왕국, 축제, 소중한 보물·우정 장면에 잘 맞아요.",
+        color: "#d4a017",
+        placeholder: "klimt",
+        image: "images/klimt.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 황금 무늬 옷을 입은 왕자와 공주가 손을 잡는 장면, 구스타프 클림트 스타일, 반짝이는 금박 패턴, 장식적인 배경, 따뜻하고 소중한 분위기",
+          "어린이 그림책 삽화, 나무 아래 보물 상자를 여는 아이들, 클림트처럼 화려한 금빛 장식과 소용돌이 무늬, 신비롭고 고운 색감",
+          "어린이 그림책 삽화, 밤하늘 아래 금빛 꽃이 핀 정원, 클림트 스타일 장식 패턴, 황금과 짙은 파랑, 꿈같은 분위기"
+        ]
+      },
+      {
+        id: "hokusai",
+        name: "호쿠사이",
+        work: "가나가와 앞바다의 큰 파도",
+        hint: "큰 파도, 선명한 윤곽선",
+        desc: "일본 목판화(우키요에) 스타일이에요. 선이 또렷하고, 파도·산·하늘이 강하게 보여요.",
+        why: "바다 모험, 여행, 용감한 장면에 딱이에요.",
+        color: "#1a5276",
+        placeholder: "hokusai",
+        image: "images/hokusai.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 커다란 파도 사이로 작은 배가 지나가는 장면, 가쓰시카 호쿠사이 우키요에 스타일, 선명한 윤곽선, 남색과 흰색 파도, 용감하고 신나는 분위기",
+          "어린이 그림책 삽화, 산을 바라보며 떠나는 여행, 일본 목판화 스타일, 호쿠사이처럼 또렷한 선과 평면적인 색, 맑고 상쾌한 느낌",
+          "어린이 그림책 삽화, 파도 위에서 하늘을 나는 물고기, 우키요에, 강한 곡선과 물결 무늬, 파랑·청록, 모험심 가득한 장면"
+        ]
+      },
+      {
+        id: "chagall",
+        name: "샤갈",
+        work: "꿈같은 마을 (스타일 참고 그림)",
+        hint: "꿈처럼 떠다니는 사람들",
+        desc: "사람과 동물이 하늘에서 떠다니고, 색이 동화처럼 아름다워요. 현실이 아닌 꿈 속 그림이에요.",
+        why: "꿈, 소원, 마법, 그리운 마음 이야기에 잘 맞아요.",
+        color: "#6b5b95",
+        placeholder: "dream",
+        image: "images/chagall.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 하늘을 나는 아이와 바이올린을 켜는 염소, 마르크 샤갈 스타일, 꿈처럼 떠다니는 구성, 선명한 원색, 따뜻하고 시적인 분위기",
+          "어린이 그림책 삽화, 마을 위로 떠다니는 연인들과 꽃, 샤갈처럼 초현실적인 동화 장면, 보랏빛과 빨강, 그리운 듯 행복한 느낌",
+          "어린이 그림책 삽화, 달과 함께 잠든 고양이, 샤갈 스타일, 공중에 떠 있는 집과 나무, 부드러운 색, 꿈결 같은 밤"
+        ]
+      },
+      {
+        id: "rousseau",
+        name: "앙리 루소",
+        work: "이국적인 숲을 걷는 여인",
+        hint: "정글, 또박또박한 나이브 화풍",
+        desc: "정글과 동물을 또박또박, 자세히 그려요. 전문 화가 수업 없이도 자신만의 세계를 만든 화가예요.",
+        why: "탐험, 정글, 신비한 동물 이야기에 최고예요.",
+        color: "#2d6a4f",
+        placeholder: "rousseau",
+        image: "images/rousseau.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 정글에서 호랑이를 만난 탐험가 아이, 앙리 루소 나이브 아트 스타일, 또박또박한 나뭇잎과 식물, 선명한 초록, 신비롭고 재미있는 분위기",
+          "어린이 그림책 삽화, 열대 숲속 사자 가족, 루소처럼 평면적이고 꼼꼼한 정글 배경, 밝고 또렷한 색, 모험 그림책",
+          "어린이 그림책 삽화, 달빛 아래 잠든 정글 동물들, 앙리 루소 스타일, 큰 잎사귀와 꽃, 고요하고 마법 같은 밤"
+        ]
+      },
+      {
+        id: "gauguin",
+        name: "고갱",
+        work: "이아 오라나 마리아",
+        hint: "대담한 열대색",
+        desc: "실제보다 더 진한 색으로 기분을 표현해요. 열대 섬의 사람과 풍경을 강렬하게 그렸어요.",
+        why: "먼 여행, 새로운 섬, 특별한 하루 장면에 잘 맞아요.",
+        color: "#c45c26",
+        placeholder: "gauguin",
+        image: "images/gauguin.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 열대 섬 해변에서 춤추는 아이들, 폴 고갱 스타일, 대담한 열대색, 평평한 색면, 자유롭고 즐거운 분위기",
+          "어린이 그림책 삽화, 주황빛 석양과 야자수, 고갱처럼 강렬한 빨강·노랑·초록, 단순화된 형태, 모험심 가득한 풍경",
+          "어린이 그림책 삽화, 과일 시장의 친구들, 고갱 스타일, 평면적 구성과 진한 색 대비, 따뜻하고 이국적인 느낌"
+        ]
+      },
+      {
+        id: "sumuk",
+        name: "한국 수묵화",
+        work: "금강전도 (정선)",
+        hint: "먹물 번짐, 넓은 여백",
+        desc: "검은 먹으로 산·나무·물을 그려요. 색을 많이 쓰지 않아도, 빈 공간이 바람과 안개처럼 느껴져요.",
+        why: "산, 강, 고요한 여행, 생각하는 장면에 잘 맞아요.",
+        color: "#2c2c2c",
+        placeholder: "sumuk",
+        image: "images/sumuk.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 안개 낀 산을 넘어가는 아이, 한국 수묵화 스타일, 먹의 진하기 변화, 넓은 여백, 붓의 번짐, 고요하고 시적인 분위기",
+          "어린이 그림책 삽화, 대나무 숲에서 학을 바라보는 장면, 수묵담채, 검은 먹과 옅은 담청, 여백이 많은 구성, 차분하고 깊은 느낌",
+          "어린이 그림책 삽화, 달빛 아래 강가의 작은 배, 한국 수묵화, 단순하고 힘 있는 선, 먹물의 농담, 고요한 밤의 이야기책 장면"
+        ]
+      },
+      {
+        id: "minhwa",
+        name: "한국 민화",
+        work: "호랑이 가족",
+        hint: "밝고 재미있는 우리 그림",
+        desc: "호랑이, 까치, 꽃, 책거리처럼 일상의 소망을 밝고 재미있게 그려요. 누구나 좋아하던 그림이에요.",
+        why: "용감한 동물, 새해·축하, 소원이 이루어지는 이야기에 딱이에요.",
+        color: "#c0392b",
+        placeholder: "minhwa",
+        image: "images/minhwa.jpg",
+        prompts: [
+          "어린이 그림책 삽화, 까치와 호랑이가 산에서 만나는 장면, 한국 민화 스타일, 밝고 평면적인 색, 재미있는 표정, 전통 문양, 유쾌하고 용감한 분위기",
+          "어린이 그림책 삽화, 꽃이 가득한 병과 책거리, 조선 민화풍, 선명한 원색, 장식적인 구성, 소원이 이루어지는 듯한 밝은 그림책 장면",
+          "어린이 그림책 삽화, 잉어가 용이 되는 이야기, 한국 민화 스타일, 물결과 구름 무늬, 빨강·파랑·노랑의 또렷한 색, 신나고 희망찬 분위기"
+        ]
+      }
+    ];
+
+    const bgCategories = [
+      {
+        id: "nature",
+        name: "자연",
+        items: [
+          {
+            title: "안개 낀 숲",
+            desc: "먼 나무만 보이고 가운데는 비워요.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 안개 낀 숲속 먼 풍경, 낮은 채도, 낮은 명도, 어두운 회녹색 톤, 중앙과 하단은 비워 두어 글씨가 잘 보이게, 인물 없음, 흐릿한 배경, 부드러운 일러스트",
+              "어린이 이야기책 배경 이미지, 깊은 숲의 실루엣만 보이는 장면, 뮤트 컬러, 낮은 채도, 낮은 명도, 여백 많음, 글씨 올리기 좋게, 초점이 흐린 배경, 인물 없음"
+            ]
+          },
+          {
+            title: "잔잔한 바다",
+            desc: "수평선이 먼 바다, 어두운 파랑.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 잔잔한 바다와 흐린 하늘, 낮은 채도, 낮은 명도, 어두운 남색·회색 톤, 중앙은 비워 두기, 글씨 올리기 좋게, 인물 없음, 흐릿한 배경",
+              "어린이 이야기책 배경 이미지, 안개 낀 해안선 먼 풍경, 뮤트된 청회색, 낮은 채도, 낮은 명도, 여백 많은 구성, 배경만, 인물 없음"
+            ]
+          },
+          {
+            title: "부드러운 들판",
+            desc: "멀리 언덕만 보이는 들.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 안개 낀 넓은 들판과 먼 언덕, 낮은 채도, 낮은 명도, 어두운 베이지·회녹색, 중앙 여백, 글씨가 돋보이게, 인물 없음, 흐릿한 풍경",
+              "어린이 이야기책 배경 이미지, 흐린 날의 초원, 뮤트 컬러, 낮은 채도, 낮은 명도, 하단 비움, 배경만, 부드러운 일러스트"
+            ]
+          },
+          {
+            title: "고요한 산",
+            desc: "산 능선이 흐릿한 실루엣.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 안개 속 산 능선 실루엣, 낮은 채도, 낮은 명도, 어두운 회청·먹색 톤, 중앙과 하단 여백, 글씨 올리기 좋게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 멀리 보이는 산과 구름, 뮤트된 풍경, 낮은 채도, 낮은 명도, 초점이 흐린 배경, 인물 없음"
+            ]
+          }
+        ]
+      },
+      {
+        id: "space",
+        name: "도시·공간",
+        items: [
+          {
+            title: "조용한 교실",
+            desc: "빈 교실, 창문 빛만 은은하게.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 비어 있는 조용한 교실 내부, 낮은 채도, 낮은 명도, 어두운 회갈색 톤, 책상은 흐리게, 중앙 여백, 글씨 올리기 좋게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 흐린 창가 빛이 드는 빈 교실, 뮤트 컬러, 낮은 채도, 낮은 명도, 배경만, 초점이 흐림, 인물 없음"
+            ]
+          },
+          {
+            title: "도서관 구석",
+            desc: "책장만 보이는 어두운 공간.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 어두운 도서관 책장 배경, 낮은 채도, 낮은 명도, 뮤트된 갈색·남색, 중앙은 비워 두기, 글씨가 돋보이게, 인물 없음, 흐릿한 배경",
+              "어린이 이야기책 배경 이미지, 고요한 독서 공간의 먼 책장, 낮은 채도, 낮은 명도, 여백 많음, 배경만, 인물 없음"
+            ]
+          },
+          {
+            title: "빈 골목",
+            desc: "사람 없는 조용한 거리.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 사람 없는 조용한 골목, 낮은 채도, 낮은 명도, 어두운 회색·청록 톤, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 흐릿한 도시 풍경",
+              "어린이 이야기책 배경 이미지, 안개 낀 빈 거리, 뮤트 컬러, 낮은 채도, 낮은 명도, 배경만, 초점이 흐림"
+            ]
+          },
+          {
+            title: "포근한 방",
+            desc: "커튼과 벽만 보이는 방.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 비어 있는 포근한 방 내부, 낮은 채도, 낮은 명도, 어두운 베이지·회보라, 중앙과 하단 비움, 글씨가 잘 보이게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 흐린 커튼 너머 창가 방, 뮤트 컬러, 낮은 채도, 낮은 명도, 여백 많은 배경, 인물 없음"
+            ]
+          }
+        ]
+      },
+      {
+        id: "illust",
+        name: "일러스트",
+        items: [
+          {
+            title: "수채 번짐",
+            desc: "연한 물감이 번진 종이 느낌.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 수채화처럼 번진 추상 배경, 낮은 채도, 낮은 명도, 어두운 파스텔 톤, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 단순한 일러스트",
+              "어린이 이야기책 배경 이미지, 물에 번진 듯한 뮤트 색면, 낮은 채도, 낮은 명도, 배경만, 초점이 흐림, 인물 없음"
+            ]
+          },
+          {
+            title: "연필 스케치",
+            desc: "흐린 연필선 풍경 스케치.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 흐릿한 연필 스케치 풍경, 낮은 채도, 낮은 명도, 회색·회청 톤, 여백 많음, 글씨가 돋보이게, 인물 없음, 동화책 배경",
+              "어린이 이야기책 배경 이미지, 가벼운 연필 질감의 빈 배경, 뮤트 컬러, 낮은 채도, 낮은 명도, 중앙 비움, 인물 없음"
+            ]
+          },
+          {
+            title: "동화 패턴",
+            desc: "은은한 별·구름 패턴.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 은은한 별과 구름 패턴, 낮은 채도, 낮은 명도, 어두운 남색·회보라, 패턴은 약하게, 중앙 여백, 글씨 올리기 좋게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 부드러운 동화풍 장식 배경, 뮤트 컬러, 낮은 채도, 낮은 명도, 배경만, 단순한 일러스트"
+            ]
+          },
+          {
+            title: "종이 텍스처",
+            desc: "낡은 종이·노트 질감.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 어두운 빈티지 종이 텍스처, 낮은 채도, 낮은 명도, 회갈색 톤, 중앙 여백, 글씨가 잘 보이게, 인물 없음, 패턴 약함",
+              "어린이 이야기책 배경 이미지, 뮤트된 노트 종이 배경, 낮은 채도, 낮은 명도, 여백 많음, 배경만, 인물 없음"
+            ]
+          }
+        ]
+      },
+      {
+        id: "season",
+        name: "계절·날씨",
+        items: [
+          {
+            title: "봄비",
+            desc: "촉촉하고 흐린 봄날.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 봄비 내리는 흐린 풍경, 낮은 채도, 낮은 명도, 어두운 회녹·청회색, 중앙 비움, 글씨 올리기 좋게, 인물 없음, 흐릿한 배경",
+              "어린이 이야기책 배경 이미지, 촉촉한 안개비 속 나뭇가지 실루엣, 뮤트 컬러, 낮은 채도, 낮은 명도, 여백 많음, 인물 없음"
+            ]
+          },
+          {
+            title: "가을 안개",
+            desc: "낙엽과 안개가 먼 풍경.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 가을 안개와 먼 나무, 낮은 채도, 낮은 명도, 어두운 갈색·회주황 톤, 중앙과 하단 여백, 글씨가 돋보이게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 흐린 가을 들판, 뮤트 컬러, 낮은 채도, 낮은 명도, 배경만, 초점이 흐림"
+            ]
+          },
+          {
+            title: "고요한 눈",
+            desc: "눈이 내린 조용한 하늘.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 눈이 소복한 고요한 풍경, 낮은 채도, 낮은 명도, 어두운 회청·은회색, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 흐릿한 배경",
+              "어린이 이야기책 배경 이미지, 흐린 겨울 하늘과 눈발, 뮤트 컬러, 낮은 채도, 낮은 명도, 여백 많음, 인물 없음"
+            ]
+          },
+          {
+            title: "어두운 석양",
+            desc: "해가 진 뒤의 낮은 빛.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 해가 진 직후 어두운 석양 하늘, 낮은 채도, 낮은 명도, 어두운 보라·남색·회주황, 중앙 비움, 글씨가 잘 보이게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 뮤트된 황혼 그라데이션, 낮은 채도, 낮은 명도, 배경만, 초점이 흐린 하늘"
+            ]
+          }
+        ]
+      },
+      {
+        id: "color",
+        name: "컬러별",
+        items: [
+          {
+            title: "남색 그라데이션",
+            desc: "어두운 남색 → 회청.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 어두운 남색에서 회청으로 이어지는 그라데이션, 낮은 채도, 낮은 명도, 단색에 가까운 배경, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 패턴 없음",
+              "어린이 이야기책 배경 이미지, 뮤트된 네이비 단색 배경, 낮은 채도, 낮은 명도, 부드러운 그라데이션, 여백 많음, 인물 없음"
+            ]
+          },
+          {
+            title: "회녹색",
+            desc: "차분한 세이지 그린.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 어두운 회녹색 단색·그라데이션 배경, 낮은 채도, 낮은 명도, 뮤트 세이지 톤, 중앙 비움, 글씨가 돋보이게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 낮은 채도의 포레스트 그린 배경, 낮은 명도, 단순 그라데이션, 배경만, 인물 없음"
+            ]
+          },
+          {
+            title: "베이지·회갈",
+            desc: "종이처럼 따뜻한 어두운 베이지.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 어두운 베이지·회갈색 그라데이션, 낮은 채도, 낮은 명도, 뮤트 웜톤, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 텍스처 약함",
+              "어린이 이야기책 배경 이미지, 낡은 종이색 단색 배경, 낮은 채도, 낮은 명도, 여백 많음, 배경만"
+            ]
+          },
+          {
+            title: "회보라",
+            desc: "은은한 라벤더 그레이.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 어두운 회보라 그라데이션, 낮은 채도, 낮은 명도, 뮤트 라벤더 그레이, 중앙 비움, 글씨가 잘 보이게, 인물 없음",
+              "어린이 이야기책 배경 이미지, 낮은 채도의 퍼플 그레이 단색 배경, 낮은 명도, 부드러운 그라데이션, 인물 없음"
+            ]
+          }
+        ]
+      },
+      {
+        id: "mood",
+        name: "분위기",
+        items: [
+          {
+            title: "고요",
+            desc: "조용하고 차분한 공기.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 고요하고 차분한 분위기 배경, 낮은 채도, 낮은 명도, 어두운 회청 톤, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 흐릿하고 단순한 풍경",
+              "어린이 이야기책 배경 이미지, 조용한 침묵의 공간, 뮤트 컬러, 낮은 채도, 낮은 명도, 여백 많음, 배경만"
+            ]
+          },
+          {
+            title: "신비",
+            desc: "안개와 희미한 빛.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 신비로운 안개와 희미한 빛, 낮은 채도, 낮은 명도, 어두운 남색·보라, 중앙 비움, 글씨가 돋보이게, 인물 없음, 초점이 흐림",
+              "어린이 이야기책 배경 이미지, 몽환적인 뮤트 톤 배경, 낮은 채도, 낮은 명도, 여백 많음, 배경만, 인물 없음"
+            ]
+          },
+          {
+            title: "포근",
+            desc: "따뜻하지만 어두운 포근함.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 포근하지만 어두운 분위기, 낮은 채도, 낮은 명도, 뮤트된 크림·회갈 톤, 중앙 여백, 글씨 올리기 좋게, 인물 없음, 부드러운 빛",
+              "어린이 이야기책 배경 이미지, 따뜻한 뮤트 웜톤 배경, 낮은 채도, 낮은 명도, 여백 많음, 배경만"
+            ]
+          },
+          {
+            title: "모험",
+            desc: "멀리 길이 보이는 모험의 시작.",
+            prompts: [
+              "어린이 이야기책 배경 이미지, 먼 길이 보이는 모험의 풍경, 낮은 채도, 낮은 명도, 어두운 청록·회갈, 중앙과 하단 비움, 글씨가 잘 보이게, 인물 없음, 흐릿한 지평선",
+              "어린이 이야기책 배경 이미지, 여행의 시작을 암시하는 뮤트 풍경, 낮은 채도, 낮은 명도, 여백 많음, 배경만, 인물 없음"
+            ]
+          }
+        ]
+      }
+    ];
+
+    const gallery = document.getElementById("gallery-grid");
+    const heroThumbs = document.getElementById("hero-thumbs");
+    const bgTabs = document.getElementById("bg-tabs");
+    const bgGrid = document.getElementById("bg-grid");
+    const charTabs = document.getElementById("char-tabs");
+    const charGrid = document.getElementById("char-grid");
+    const backdrop = document.getElementById("modal-backdrop");
+    const modalClose = document.getElementById("modal-close");
+    const modalHero = document.getElementById("modal-hero-media");
+    const toast = document.getElementById("toast");
+    let lastFocus = null;
+    let toastTimer = null;
+    let activeBgId = bgCategories[0].id;
+
+    const SHEET_VIEW =
+      "캐릭터 디자인 시트, 순백 배경 위에 가로로 네 각도 배치, " +
+      "1) 정면 상반신 클로즈업, 2) 앞전신, 3) 뒷전신, 4) 옆전신 프로필, " +
+      "동일 캐릭터·동일 비율·동일 의상 일관성, no text, no labels, 소품 없음, 손에 든 물건 없음, 깔끔한 스튜디오 조명";
+
+    const charStyles = [
+      {
+        id: "realistic3d",
+        name: "실사 3D",
+        hint: "사실적인 3D 렌더",
+        sheets: [
+          {
+            title: "시트 1 - 우주 비행사 아이",
+            desc: "실사 3D, 은색 우주복.",
+            prompt:
+              "고해상도 실사 3D 캐릭터 렌더, 호기심 많은 초등학생, 짧은 곱슬머리, 은회색 우주복 점프수트, 주황 포인트 라인, 하얀 장갑과 부츠, 밝은 미소, " +
+              SHEET_VIEW +
+              ", 사실적인 원단 피부 텍스처, 부드러운 스튜디오 라이팅"
+          },
+          {
+            title: "시트 2 - 한복 입은 아이",
+            desc: "실사 3D, 단아한 생활한복.",
+            prompt:
+              "고해상도 실사 3D 캐릭터 렌더, 동아시아 어린이, 단정한 단발, 연한 분홍 옥색 생활한복, 하얀 버선과 고무신, 고요한 미소, " +
+              SHEET_VIEW +
+              ", 사실적인 비단 질감, 소품 없음, 깨끗한 화이트 배경"
+          }
+        ]
+      },
+      {
+        id: "kawaii",
+        name: "애니 카와이",
+        hint: "귀여운 2D 애니",
+        sheets: [
+          {
+            title: "시트 1 - 팬케이크 마법사",
+            desc: "카와이 애니 마법사.",
+            prompt:
+              "2D 애니 카와이 일러스트, 작은 마법사 아이, 큰 반짝이는 눈, 볼터치, 하얀 요리사 모자, 하늘색 망토, 줄무늬 스타킹, 짧은 다리, 셀 쉐이딩, " +
+              SHEET_VIEW +
+              ", 파스텔 색, 지팡이 소품 없이 손 비움"
+          },
+          {
+            title: "시트 2 - 구름 여우",
+            desc: "카와이 애니 흰 여우.",
+            prompt:
+              "2D 애니 카와이 일러스트, 하얀 여우 캐릭터, 연한 하늘색 포인트, 큰 귀와 푹신한 꼬리, 동그란 눈, 밝은 표정, 셀 쉐이딩, " +
+              SHEET_VIEW +
+              ", 깨끗한 라인, no text, 소품 없음"
+          }
+        ]
+      },
+      {
+        id: "webtoon",
+        name: "웹툴",
+        hint: "한국 웹툴 스타일",
+        sheets: [
+          {
+            title: "시트 1 - 밴드부 학생",
+            desc: "웹툴풍 교복.",
+            prompt:
+              "한국 웹툴 스타일 캐릭터, 중학교 밴드부 남학생, 짧은 검은 머리, 남색 교복 조끼와 흰색 셔츠, 또렷한 눈매, 깨끗한 선화, 부드러운 채색, " +
+              SHEET_VIEW +
+              ", 악기 소품 없음, no text"
+          },
+          {
+            title: "시트 2 - 운동부 여학생",
+            desc: "웹툴풍 트레이닝복.",
+            prompt:
+              "한국 웹툴 스타일, 활기찬 여학생, 묵은 머리, 빨간 트레이닝 점퍼와 검정 운동바지, 흰 운동화, 또렷한 윤곽선, 플랫 채색, " +
+              SHEET_VIEW +
+              ", 공 가방 등 소품 없음, 글씨 없음"
+          }
+        ]
+      },
+      {
+        id: "watercolor",
+        name: "수채 일러스트",
+        hint: "부드러운 수채",
+        sheets: [
+          {
+            title: "시트 1 - 정원사 할머니",
+            desc: "수채화 정원사.",
+            prompt:
+              "어린이 그림책 수채 일러스트, 다정한 할머니, 은빛 단발, 연두 앞치마, 체크 블라우스, 편한 바지, 은은한 색번짐, " +
+              SHEET_VIEW +
+              ", 따뜻한 색감, 소품 없음, no text"
+          },
+          {
+            title: "시트 2 - 파란 고래 아기",
+            desc: "수채화 고래.",
+            prompt:
+              "수채 일러스트, 귀여운 아기 고래, 부드러운 파랑 청록, 동그란 눈, 물감이 번진 가장자리, 파스텔 톤, " +
+              SHEET_VIEW +
+              ", 동화책 캐릭터 시트, 글씨 없음, 소품 없음"
+          }
+        ]
+      },
+      {
+        id: "storybook",
+        name: "동화책",
+        hint: "클래식 그림책",
+        sheets: [
+          {
+            title: "시트 1 - 숲속 요정",
+            desc: "동화책 요정.",
+            prompt:
+              "클래식 어린이 동화책 일러스트 스타일, 작은 숲 요정 아이, 연두 잎사귀 옷, 꽃잎 같은 짧은 머리, 맨발, 부드러운 형태, 따뜻한 색, " +
+              SHEET_VIEW +
+              ", 지팡이 날개 소품 없음, no text"
+          },
+          {
+            title: "시트 2 - 용감한 생쥐",
+            desc: "동화책 생쥐.",
+            prompt:
+              "동화책 일러스트, 의인화 생쥐 캐릭터, 빨간 망토와 노란 조끼, 작은 장화, 친근한 표정, 부드러운 붓터치, " +
+              SHEET_VIEW +
+              ", 칼 가방 없이 손 비움, 글씨 없음"
+          }
+        ]
+      },
+      {
+        id: "clay",
+        name: "클레이",
+        hint: "점토 스톱모션",
+        sheets: [
+          {
+            title: "시트 1 - 로봇 친구",
+            desc: "점토 로봇.",
+            prompt:
+              "클레이메이션 스타일 3D, 동글동글한 어린이 로봇, 하늘색 몸체, 노란 관절, 큰 눈 스크린, 짧은 다리, 매트한 점토 표면, " +
+              SHEET_VIEW +
+              ", 도구 소품 없음, no text"
+          },
+          {
+            title: "시트 2 - 빵 캐릭터",
+            desc: "점토 식빵.",
+            prompt:
+              "클레이 스타일, 귀여운 식빵 캐릭터, 황금빛 갈색 껍질, 크림색 속, 작은 팔다리, 해맑은 표정, 매트한 점토 질감, " +
+              SHEET_VIEW +
+              ", 순백 배경, 글씨 없음, 소품 없음"
+          }
+        ]
+      },
+      {
+        id: "pixel",
+        name: "픽셀 게임",
+        hint: "픽셀 아트",
+        sheets: [
+          {
+            title: "시트 1 - 농부 아이",
+            desc: "픽셀 농부.",
+            prompt:
+              "깨끗한 픽셀 아트 캐릭터, 농부 아이, 밀짚모자, 체크 셔츠, 멜빵바지, 장화, 또렷한 픽셀, 제한된 색상, " +
+              SHEET_VIEW +
+              ", 소품 없음, 게임 캐릭터 시트, no text"
+          },
+          {
+            title: "시트 2 - 슬라임 영웅",
+            desc: "픽셀 슬라임.",
+            prompt:
+              "픽셀 아트, 귀여운 초록 슬라임 영웅, 큰 눈, 작은 팔, 단순한 실루엣, 밝은 초록 하이라이트, " +
+              SHEET_VIEW +
+              ", 무기 없이, 흰 배경, 글씨 없음"
+          }
+        ]
+      },
+      {
+        id: "flat",
+        name: "플랫 벡터",
+        hint: "단순 벡터",
+        sheets: [
+          {
+            title: "시트 1 - 도서관 사서",
+            desc: "플랫 사서.",
+            prompt:
+              "플랫 벡터 일러스트, 단순한 면과 선, 젊은 사서, 동그란 안경, 니트 조끼, 긴 치마, 단정한 머리, 최소한의 그림자, " +
+              SHEET_VIEW +
+              ", 책 소품 없음, no text"
+          },
+          {
+            title: "시트 2 - 불사조 병아리",
+            desc: "플랫 병아리.",
+            prompt:
+              "플랫 벡터, 작은 불사조 병아리, 주황 노랑 깃털, 작은 날개, 동그란 눈, 단순한 도형, " +
+              SHEET_VIEW +
+              ", 소품 없음, 순백 배경, 글씨 없음"
+          }
+        ]
+      }
+    ];
+
+    let activeCharId = charStyles[0].id;
+
+    function placeholderEl(s, label) {
+      const div = document.createElement("div");
+      div.className = `card-placeholder ph-${s.placeholder}`;
+      div.setAttribute("aria-hidden", "true");
+      div.innerHTML = `<span>${label || s.name}</span>`;
+      return div;
+    }
+
+    function placeholderHtml(s) {
+      return `<div class="card-placeholder ph-${s.placeholder}" aria-hidden="true"><span>${s.name}</span></div>`;
+    }
+
+    function bindImageFallback(img, s) {
+      img.addEventListener("error", () => {
+        const wrap = img.parentElement;
+        if (!wrap) return;
+        img.remove();
+        wrap.appendChild(placeholderEl(s));
+      }, { once: true });
+    }
+
+    function thumbHtml(s) {
+      if (s.image) {
+        return `<div class="thumb-wrap"><img class="card-thumb" src="${s.image}" alt="${s.name} — ${s.work}" loading="lazy" data-id="${s.id}" /></div>`;
+      }
+      return `<div class="thumb-wrap">${placeholderHtml(s)}</div>`;
+    }
+
+    function renderGallery() {
+      gallery.innerHTML = styles.map((s, i) => `
+        <button type="button" class="style-card" role="listitem" data-id="${s.id}" aria-label="${s.name}: ${s.hint}">
+          ${thumbHtml(s)}
+          <div class="card-body">
+            <span class="card-num">${String(i + 1).padStart(2, "0")}</span>
+            <span class="card-name">${s.name}</span>
+            <span class="card-hint">${s.hint}</span>
+          </div>
+        </button>
+      `).join("");
+
+      gallery.querySelectorAll("img.card-thumb").forEach((img) => {
+        const s = styles.find((x) => x.id === img.dataset.id);
+        if (s) bindImageFallback(img, s);
+      });
+    }
+
+    function renderHeroThumbs() {
+      heroThumbs.innerHTML = styles.map((s) => {
+        const media = s.image
+          ? `<img src="${s.image}" alt="" loading="lazy" data-id="${s.id}" />`
+          : placeholderHtml(s);
+        return `<button type="button" class="hero-thumb" role="listitem" data-id="${s.id}" aria-label="${s.name} 자세히 보기">${media}</button>`;
+      }).join("");
+
+      heroThumbs.querySelectorAll("img").forEach((img) => {
+        const s = styles.find((x) => x.id === img.dataset.id);
+        if (s) bindImageFallback(img, s);
+      });
+    }
+
+    function setModalMedia(style) {
+      [...modalHero.querySelectorAll("img, .card-placeholder")].forEach((el) => el.remove());
+
+      if (style.image) {
+        const img = document.createElement("img");
+        img.alt = `${style.name} — ${style.work}`;
+        img.src = style.image;
+        img.addEventListener("error", () => {
+          img.remove();
+          modalHero.insertBefore(placeholderEl(style), modalClose);
+        }, { once: true });
+        modalHero.insertBefore(img, modalClose);
+      } else {
+        modalHero.insertBefore(placeholderEl(style), modalClose);
+      }
+    }
+
+    function openModal(style) {
+      lastFocus = document.activeElement;
+      document.getElementById("modal-title").textContent = style.name;
+      document.getElementById("modal-work").textContent = `대표 작품: ${style.work}`;
+      document.getElementById("modal-desc").textContent = style.desc;
+      document.getElementById("modal-why").innerHTML = `<strong>책 그릴 때</strong>${style.why}`;
+      setModalMedia(style);
+
+      const promptsEl = document.getElementById("modal-prompts");
+      promptsEl.innerHTML = style.prompts.map((p, i) => `
+        <div class="prompt-block">
+          <div class="prompt-label">프롬프트 ${i + 1}</div>
+          <p class="prompt-text">${p}</p>
+          <button type="button" class="copy-btn" data-prompt="${encodeURIComponent(p)}">복사하기</button>
+        </div>
+      `).join("");
+
+      backdrop.hidden = false;
+      requestAnimationFrame(() => backdrop.classList.add("open"));
+      document.body.style.overflow = "hidden";
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.remove("open");
+      document.body.style.overflow = "";
+      setTimeout(() => {
+        backdrop.hidden = true;
+        if (lastFocus) lastFocus.focus();
+      }, 280);
+    }
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    async function copyText(text, btn) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      btn.classList.add("copied");
+      btn.textContent = "복사됨!";
+      showToast("프롬프트를 복사했어요!");
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.textContent = "복사하기";
+      }, 1600);
+    }
+
+    function onStyleActivate(e) {
+      const el = e.target.closest("[data-id]");
+      if (!el || !el.dataset.id) return;
+      if (!el.classList.contains("style-card") && !el.classList.contains("hero-thumb")) return;
+      const style = styles.find((s) => s.id === el.dataset.id);
+      if (style) openModal(style);
+    }
+
+    gallery.addEventListener("click", onStyleActivate);
+    heroThumbs.addEventListener("click", onStyleActivate);
+
+    document.getElementById("modal-prompts").addEventListener("click", (e) => {
+      const btn = e.target.closest(".copy-btn");
+      if (!btn) return;
+      copyText(decodeURIComponent(btn.dataset.prompt), btn);
+    });
+
+    modalClose.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && backdrop.classList.contains("open")) closeModal();
+    });
+
+    function renderBgTabs() {
+      bgTabs.innerHTML = bgCategories.map((c) => `
+        <button type="button" class="bg-tab${c.id === activeBgId ? " active" : ""}" role="tab"
+          aria-selected="${c.id === activeBgId}" data-bg="${c.id}">${c.name}</button>
+      `).join("");
+    }
+
+    function renderBgCards() {
+      const cat = bgCategories.find((c) => c.id === activeBgId) || bgCategories[0];
+      bgGrid.innerHTML = cat.items.map((item) => `
+        <article class="bg-card">
+          <h3 class="bg-card-title">${item.title}</h3>
+          <p class="bg-card-desc">${item.desc}</p>
+          ${item.prompts.map((p, i) => `
+            <div class="prompt-block">
+              <div class="prompt-label">프롬프트 ${i + 1}</div>
+              <p class="prompt-text">${p}</p>
+              <button type="button" class="copy-btn" data-prompt="${encodeURIComponent(p)}">복사하기</button>
+            </div>
+          `).join("")}
+        </article>
+      `).join("");
+    }
+
+    bgTabs.addEventListener("click", (e) => {
+      const tab = e.target.closest(".bg-tab");
+      if (!tab) return;
+      activeBgId = tab.dataset.bg;
+      renderBgTabs();
+      renderBgCards();
+    });
+
+    bgGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".copy-btn");
+      if (!btn) return;
+      copyText(decodeURIComponent(btn.dataset.prompt), btn);
+    });
+
+    function renderCharTabs() {
+      charTabs.innerHTML = charStyles.map((c) => `
+        <button type="button" class="bg-tab${c.id === activeCharId ? " active" : ""}" role="tab"
+          aria-selected="${c.id === activeCharId}" data-char="${c.id}" title="${c.hint}">${c.name}</button>
+      `).join("");
+    }
+
+    function renderCharCards() {
+      const style = charStyles.find((c) => c.id === activeCharId) || charStyles[0];
+      charGrid.innerHTML = `
+        <p class="section-sub" style="grid-column:1/-1;margin:0 0 0.25rem;">${style.hint} · 각 시트는 정면 상반신 / 앞전신 / 뒷전신 / 옆전신</p>
+        ${style.sheets.map((sheet) => `
+          <article class="bg-card">
+            <h3 class="bg-card-title">${sheet.title}</h3>
+            <p class="bg-card-desc">${sheet.desc}</p>
+            <div class="prompt-block">
+              <div class="prompt-label">디자인 시트 프롬프트</div>
+              <p class="prompt-text">${sheet.prompt}</p>
+              <button type="button" class="copy-btn" data-prompt="${encodeURIComponent(sheet.prompt)}">복사하기</button>
+            </div>
+          </article>
+        `).join("")}
+      `;
+    }
+
+    charTabs.addEventListener("click", (e) => {
+      const tab = e.target.closest(".bg-tab");
+      if (!tab) return;
+      activeCharId = tab.dataset.char;
+      renderCharTabs();
+      renderCharCards();
+    });
+
+    charGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".copy-btn");
+      if (!btn) return;
+      copyText(decodeURIComponent(btn.dataset.prompt), btn);
+    });
+
+    renderHeroThumbs();
+    renderGallery();
+    renderBgTabs();
+    renderBgCards();
+    renderCharTabs();
+    renderCharCards();
+  </script>
+</body>
+</html>
