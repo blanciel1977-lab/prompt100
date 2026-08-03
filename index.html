@@ -728,6 +728,187 @@
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
+
+    /* —— Story wizard (동화책 4단계) —— */
+    .story-wizard {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.15rem 1.35rem;
+      box-shadow: 0 4px 18px var(--shadow);
+    }
+
+    .story-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .story-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .story-step {
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      background: var(--blue-pale);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 0.55rem 0.4rem;
+      cursor: pointer;
+      text-align: center;
+      line-height: 1.35;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .story-step:hover,
+    .story-step:focus-visible {
+      border-color: var(--blue);
+      color: var(--navy);
+      outline: none;
+    }
+
+    .story-step.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    .story-step .step-num {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      opacity: 0.85;
+      margin-bottom: 0.1rem;
+    }
+
+    .story-step-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+    }
+
+    .story-step-guide {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-form {
+      display: grid;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-field label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+
+    .story-field .optional {
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+
+    .story-field input,
+    .story-field textarea {
+      width: 100%;
+      font: inherit;
+      font-size: 0.98rem;
+      color: var(--ink);
+      background: var(--blue-pale);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 0.65rem 0.8rem;
+      resize: vertical;
+    }
+
+    .story-field input:focus,
+    .story-field textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+      background: var(--white);
+    }
+
+    .story-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .story-actions .cta {
+      border: none;
+      cursor: pointer;
+    }
+
+    .story-nav-btn {
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--white);
+      border: 1.5px solid var(--navy);
+      border-radius: 10px;
+      padding: 0.65rem 1.1rem;
+      cursor: pointer;
+    }
+
+    .story-nav-btn:hover:not(:disabled) {
+      background: var(--blue-soft);
+    }
+
+    .story-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .story-hint {
+      font-size: 0.9rem;
+      color: #b42318;
+      min-height: 1.35em;
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .story-results {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .story-results:empty {
+      display: none;
+    }
+
+    .story-result-card {
+      background: var(--blue-pale);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.95rem;
+    }
+
+    .story-result-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+
+    .story-result-card .result-kind {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 0.55rem;
+    }
   </style>
 </head>
 <body>
@@ -737,13 +918,15 @@
       <a class="nav-link" href="#gallery">명화 스타일</a>
       <a class="nav-link" href="#bg-prompts">이야기배경 이미지 만들기</a>
       <a class="nav-link" href="#char-prompts">캐릭터만들기</a>
+      <a class="nav-link" href="#story-prompts">동화책만들기</a>
     </nav>
 
     <header class="hero">
-      <p class="hero-badge">초등 그림책 · 명화 · 배경 · 캐릭터</p>
+      <p class="hero-badge">초등 그림책 · 명화 · 배경 · 캐릭터 · 이야기</p>
       <h1 class="brand">명화로 <span>책</span> 그리기</h1>
       <p class="hero-lead">
-        명화 스타일, 글씨가 돋보이는 이야기 배경, 다각도 캐릭터 시트를 만들어 보세요.
+        명화 스타일, 글씨가 돋보이는 이야기 배경, 다각도 캐릭터 시트,
+        그리고 4단계로 이어지는 동화책 만들기 프롬프트를 만들어 보세요.
         교실과 집에서 이야기책을 만들 때 쓸 수 있는 교육용 안내입니다.
       </p>
       <div class="hero-thumbs" id="hero-thumbs" role="list" aria-label="스타일 미리보기"></div>
@@ -751,6 +934,7 @@
         <a class="cta" href="#gallery">명화 스타일 보기 ↓</a>
         <a class="cta cta-secondary" href="#bg-prompts">이야기배경 만들기 ↓</a>
         <a class="cta cta-secondary" href="#char-prompts">캐릭터만들기 ↓</a>
+        <a class="cta cta-secondary" href="#story-prompts">동화책만들기 ↓</a>
       </div>
     </header>
 
@@ -774,6 +958,24 @@
       <div class="bg-grid" id="char-grid" role="tabpanel"></div>
     </section>
 
+    <section id="story-prompts" aria-labelledby="story-title">
+      <h2 class="section-title" id="story-title">동화책만들기</h2>
+      <p class="section-sub">이야기 만들기 4단계(주인공 → 배경·장소 → 문제·사건 → 결말·해결)를 한 단계씩 채우면, 이야기 글 프롬프트와 장면 그림 프롬프트가 나와요.</p>
+      <div class="story-wizard">
+        <div class="story-steps" id="story-steps" role="tablist" aria-label="이야기 4단계"></div>
+        <h3 class="story-step-title" id="story-step-title"></h3>
+        <p class="story-step-guide" id="story-step-guide"></p>
+        <form class="story-form" id="story-form" autocomplete="off"></form>
+        <div class="story-actions">
+          <button type="button" class="story-nav-btn" id="story-prev">이전</button>
+          <button type="button" class="cta" id="story-generate">프롬프트 만들기</button>
+          <button type="button" class="story-nav-btn" id="story-next">다음</button>
+        </div>
+        <p class="story-hint" id="story-hint" role="status" aria-live="polite"></p>
+        <div class="story-results" id="story-results" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="tips" aria-labelledby="tips-title">
       <h2 id="tips-title">이렇게 써 보세요</h2>
       <ul>
@@ -782,6 +984,7 @@
         <li>한 책에 <strong>같은 화가 스타일</strong>을 쓰면 그림이 더 잘 어울려요.</li>
         <li>배경은 <strong>낮은 채도·낮은 명도</strong>로 두고, 글씨는 밝은색이나 진한색으로 올려 보세요.</li>
         <li>캐릭터 시트는 <strong>흰 배경 · 네 각도 · 글씨 없음 · 소품 없음</strong>을 유지해 보세요.</li>
+        <li>동화책은 <strong>4단계를 순서대로</strong> 만들고, 글 프롬프트와 그림 프롬프트를 함께 써 보세요.</li>
         <li>마음에 드는 문장만 골라도 괜찮아요!</li>
       </ul>
     </section>
@@ -1683,12 +1886,288 @@
       copyText(decodeURIComponent(btn.dataset.prompt), btn);
     });
 
+    /* —— 동화책만들기 4단계 —— */
+    const storySteps = [
+      {
+        id: "hero",
+        label: "주인공",
+        title: "1단계 · 주인공",
+        guide: "이야기의 주인공이 누구인지 적어 보세요. 성격과 외형도 한 줄씩 써 주면 그림과 글이 잘 맞아요.",
+        fields: [
+          { key: "who", label: "이름·종류", placeholder: "예: 호기심 많은 여우 미루", required: true },
+          { key: "trait", label: "성격", placeholder: "예: 용감하고 다정해요", required: true },
+          { key: "look", label: "외형", placeholder: "예: 주황 털, 파란 스카프, 큰 눈", required: true }
+        ]
+      },
+      {
+        id: "setting",
+        label: "배경·장소",
+        title: "2단계 · 배경·장소",
+        guide: "이야기가 어디서, 언제 일어나는지 적어 보세요. 분위기도 함께 적으면 장면이 또렷해져요.",
+        fields: [
+          { key: "place", label: "장소", placeholder: "예: 안개 낀 숲속 작은 마을", required: true },
+          { key: "time", label: "시간·계절", placeholder: "예: 초가을 저녁", required: true },
+          { key: "mood", label: "분위기", placeholder: "예: 조용하고 신비로운", required: true }
+        ]
+      },
+      {
+        id: "problem",
+        label: "문제·사건",
+        title: "3단계 · 문제·사건",
+        guide: "주인공이 무엇을 원하고, 어떤 어려움이 생기는지 적어 보세요.",
+        fields: [
+          { key: "want", label: "주인공이 원하는 것", placeholder: "예: 잃어버린 별을 찾고 싶어요", required: true },
+          { key: "trouble", label: "생기는 문제", placeholder: "예: 다리가 무너져 길을 못 가요", required: true },
+          { key: "feeling", label: "그때의 기분", placeholder: "예: 걱정되지만 포기하지 않아요", required: true }
+        ]
+      },
+      {
+        id: "ending",
+        label: "결말·해결",
+        title: "4단계 · 결말·해결",
+        guide: "문제를 어떻게 해결하고, 이야기가 어떻게 끝나는지 적어 보세요.",
+        fields: [
+          { key: "solve", label: "해결 방법", placeholder: "예: 친구들과 함께 다리를 고쳐요", required: true },
+          { key: "finale", label: "마지막 장면·교훈", placeholder: "예: 함께하면 더 멀리 갈 수 있어요", required: false }
+        ]
+      }
+    ];
+
+    const storyAnswers = storySteps.map(() => ({}));
+    let activeStoryStep = 0;
+
+    const storyStepsEl = document.getElementById("story-steps");
+    const storyForm = document.getElementById("story-form");
+    const storyStepTitle = document.getElementById("story-step-title");
+    const storyStepGuide = document.getElementById("story-step-guide");
+    const storyPrev = document.getElementById("story-prev");
+    const storyNext = document.getElementById("story-next");
+    const storyGenerate = document.getElementById("story-generate");
+    const storyHint = document.getElementById("story-hint");
+    const storyResults = document.getElementById("story-results");
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function saveStoryForm() {
+      const step = storySteps[activeStoryStep];
+      const data = {};
+      step.fields.forEach((f) => {
+        const el = storyForm.querySelector(`[name="${f.key}"]`);
+        data[f.key] = el ? el.value.trim() : "";
+      });
+      storyAnswers[activeStoryStep] = data;
+    }
+
+    function collectContext(upto) {
+      const a = storyAnswers;
+      const ctx = {};
+      if (upto >= 0) Object.assign(ctx, { hero: a[0] || {} });
+      if (upto >= 1) Object.assign(ctx, { setting: a[1] || {} });
+      if (upto >= 2) Object.assign(ctx, { problem: a[2] || {} });
+      if (upto >= 3) Object.assign(ctx, { ending: a[3] || {} });
+      return ctx;
+    }
+
+    function heroLine(h) {
+      return `${h.who || "주인공"}(성격: ${h.trait || "따뜻한"}, 외형: ${h.look || "친근한 모습"})`;
+    }
+
+    function settingLine(s) {
+      return `${s.time || "어느 날"}의 ${s.place || "어떤 곳"}(${s.mood || "잔잔한"} 분위기)`;
+    }
+
+    function buildStoryPrompts(stepIndex) {
+      const ctx = collectContext(stepIndex);
+      const h = ctx.hero || {};
+      const s = ctx.setting || {};
+      const p = ctx.problem || {};
+      const e = ctx.ending || {};
+      const pictureBase =
+        "어린이 그림책 일러스트, 부드러운 붓터치, 따뜻한 색감, 한 장면 한 컷, " +
+        "낮은 채도·낮은 명도 배경에 여백, 글씨 올리기 좋은 구도, no text, no letters, 글씨 없음, 워터마크 없음";
+
+      if (stepIndex === 0) {
+        return {
+          text:
+            "초등 그림책용 짧은 이야기를 써 주세요.\n" +
+            `주인공을 소개하는 시작 장면만 4~6문장으로 써 주세요.\n` +
+            `주인공: ${heroLine(h)}\n` +
+            "쉬운 말로, 어린이가 읽기 좋게 써 주세요. 문제나 결말은 아직 쓰지 마세요.",
+          image:
+            `${pictureBase}, 주인공 소개 장면, ${h.who || "주인공"}, ${h.look || "친근한 외형"}, ` +
+            `${h.trait || "따뜻한"} 표정의 캐릭터, 정면 또는 3/4 앵글, 배경은 단순하고 흐릿하게`
+        };
+      }
+
+      if (stepIndex === 1) {
+        return {
+          text:
+            "초등 그림책용 짧은 이야기를 써 주세요.\n" +
+            "주인공이 배경·장소에 들어서는 장면만 4~6문장으로 써 주세요.\n" +
+            `주인공: ${heroLine(h)}\n` +
+            `배경·장소: ${settingLine(s)}\n` +
+            "쉬운 말로 써 주세요. 큰 문제나 결말은 아직 쓰지 마세요.",
+          image:
+            `${pictureBase}, 이야기 배경 장면, ${settingLine(s)}, ` +
+            `주인공 ${h.who || "아이"}(${h.look || "친근한 외형"})가 장소에 서 있는 모습, ` +
+            "인물은 작게, 장소 분위기가 잘 보이게"
+        };
+      }
+
+      if (stepIndex === 2) {
+        return {
+          text:
+            "초등 그림책용 짧은 이야기를 써 주세요.\n" +
+            "문제·사건이 생기는 중간 장면만 5~8문장으로 써 주세요.\n" +
+            `주인공: ${heroLine(h)}\n` +
+            `배경·장소: ${settingLine(s)}\n` +
+            `원하는 것: ${p.want || ""}\n` +
+            `생기는 문제: ${p.trouble || ""}\n` +
+            `그때의 기분: ${p.feeling || ""}\n` +
+            "쉬운 말로 써 주세요. 해결이나 결말은 아직 쓰지 마세요.",
+          image:
+            `${pictureBase}, 문제·사건 장면, ${settingLine(s)}, ` +
+            `주인공 ${h.who || "아이"}(${h.look || "친근한 외형"}), ` +
+            `상황: ${p.trouble || "어려움"}, 감정: ${p.feeling || "긴장"}, 드라마틱하지만 어린이에게 안전한 장면`
+        };
+      }
+
+      const finaleExtra = e.finale ? `\n마지막 장면·교훈: ${e.finale}` : "";
+      return {
+        text:
+          "초등 그림책용 짧은 이야기를 써 주세요.\n" +
+          "문제를 해결하고 끝나는 결말 장면만 5~8문장으로 써 주세요.\n" +
+          `주인공: ${heroLine(h)}\n` +
+          `배경·장소: ${settingLine(s)}\n` +
+          `원했던 것: ${p.want || ""}\n` +
+          `겪었던 문제: ${p.trouble || ""}\n` +
+          `해결 방법: ${e.solve || ""}${finaleExtra}\n` +
+          "쉬운 말로, 따뜻한 결말로 써 주세요.",
+        image:
+          `${pictureBase}, 결말·해결 장면, ${settingLine(s)}, ` +
+          `주인공 ${h.who || "아이"}(${h.look || "친근한 외형"}), ` +
+          `해결: ${e.solve || "함께 극복"}, ${e.finale || "따뜻한 마무리"}, 희망적이고 밝은 분위기`
+      };
+    }
+
+    function validateCurrentStep() {
+      const step = storySteps[activeStoryStep];
+      const data = storyAnswers[activeStoryStep] || {};
+      const missing = step.fields.filter((f) => f.required && !data[f.key]);
+      if (missing.length) {
+        storyHint.textContent = `빈칸을 채워 주세요: ${missing.map((f) => f.label).join(", ")}`;
+        return false;
+      }
+      storyHint.textContent = "";
+      return true;
+    }
+
+    function renderStorySteps() {
+      storyStepsEl.innerHTML = storySteps.map((step, i) => `
+        <button type="button" class="story-step${i === activeStoryStep ? " active" : ""}" role="tab"
+          aria-selected="${i === activeStoryStep}" data-step="${i}">
+          <span class="step-num">${i + 1}단계</span>${step.label}
+        </button>
+      `).join("");
+    }
+
+    function renderStoryForm() {
+      const step = storySteps[activeStoryStep];
+      const data = storyAnswers[activeStoryStep] || {};
+      storyStepTitle.textContent = step.title;
+      storyStepGuide.textContent = step.guide;
+      storyForm.innerHTML = step.fields.map((f) => `
+        <div class="story-field">
+          <label for="story-${f.key}">${f.label}${f.required ? "" : ' <span class="optional">(선택)</span>'}</label>
+          <input type="text" id="story-${f.key}" name="${f.key}" value="${escapeHtml(data[f.key] || "")}"
+            placeholder="${escapeHtml(f.placeholder)}" ${f.required ? "required" : ""} />
+        </div>
+      `).join("");
+      storyPrev.disabled = activeStoryStep === 0;
+      storyNext.disabled = activeStoryStep === storySteps.length - 1;
+      storyResults.innerHTML = "";
+      storyHint.textContent = "";
+    }
+
+    function renderStoryResults(prompts) {
+      storyResults.innerHTML = `
+        <article class="story-result-card">
+          <div class="result-kind">이야기 글 프롬프트</div>
+          <h3>ChatGPT 등에 붙여넣기</h3>
+          <div class="prompt-block" style="margin:0.7rem 0 0;background:var(--white);">
+            <p class="prompt-text">${escapeHtml(prompts.text)}</p>
+            <button type="button" class="copy-btn" data-prompt="${encodeURIComponent(prompts.text)}">복사하기</button>
+          </div>
+        </article>
+        <article class="story-result-card">
+          <div class="result-kind">장면 그림 프롬프트</div>
+          <h3>이미지 AI에 붙여넣기</h3>
+          <div class="prompt-block" style="margin:0.7rem 0 0;background:var(--white);">
+            <p class="prompt-text">${escapeHtml(prompts.image)}</p>
+            <button type="button" class="copy-btn" data-prompt="${encodeURIComponent(prompts.image)}">복사하기</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function goStoryStep(index) {
+      saveStoryForm();
+      activeStoryStep = Math.max(0, Math.min(storySteps.length - 1, index));
+      renderStorySteps();
+      renderStoryForm();
+    }
+
+    storyStepsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".story-step");
+      if (!btn) return;
+      goStoryStep(Number(btn.dataset.step));
+    });
+
+    storyPrev.addEventListener("click", () => goStoryStep(activeStoryStep - 1));
+    storyNext.addEventListener("click", () => goStoryStep(activeStoryStep + 1));
+
+    storyForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      storyGenerate.click();
+    });
+
+    storyGenerate.addEventListener("click", () => {
+      saveStoryForm();
+      if (!validateCurrentStep()) return;
+      // 이전 단계 필수값도 확인 (이어붙이기용)
+      for (let i = 0; i < activeStoryStep; i++) {
+        const step = storySteps[i];
+        const data = storyAnswers[i] || {};
+        const missing = step.fields.filter((f) => f.required && !data[f.key]);
+        if (missing.length) {
+          storyHint.textContent = `${i + 1}단계(${step.label}) 입력이 비어 있어요. 먼저 채워 주세요.`;
+          return;
+        }
+      }
+      renderStoryResults(buildStoryPrompts(activeStoryStep));
+      showToast("프롬프트를 만들었어요!");
+    });
+
+    storyResults.addEventListener("click", (e) => {
+      const btn = e.target.closest(".copy-btn");
+      if (!btn) return;
+      copyText(decodeURIComponent(btn.dataset.prompt), btn);
+    });
+
     renderHeroThumbs();
     renderGallery();
     renderBgTabs();
     renderBgCards();
     renderCharTabs();
     renderCharCards();
+    renderStorySteps();
+    renderStoryForm();
   </script>
 </body>
 </html>
