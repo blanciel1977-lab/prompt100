@@ -909,6 +909,128 @@
       color: var(--blue);
       margin-bottom: 0.55rem;
     }
+
+    /* —— Right-side floating nav —— */
+    .side-nav {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.4rem;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.65rem;
+    }
+
+    .side-nav-toggle {
+      width: 3.1rem;
+      height: 3.1rem;
+      border: none;
+      border-radius: 14px;
+      background: var(--navy);
+      color: var(--white);
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(11, 61, 145, 0.28);
+      display: grid;
+      place-items: center;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .side-nav-toggle:hover,
+    .side-nav-toggle:focus-visible {
+      background: var(--blue);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .side-nav-toggle[aria-expanded="true"] {
+      background: var(--blue);
+    }
+
+    .side-nav-toggle .burger,
+    .side-nav-toggle .burger::before,
+    .side-nav-toggle .burger::after {
+      display: block;
+      width: 1.15rem;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      position: relative;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .side-nav-toggle .burger::before,
+    .side-nav-toggle .burger::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .side-nav-toggle .burger::before { top: -6px; }
+    .side-nav-toggle .burger::after { top: 6px; }
+
+    .side-nav-toggle[aria-expanded="true"] .burger {
+      background: transparent;
+    }
+
+    .side-nav-toggle[aria-expanded="true"] .burger::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .side-nav-toggle[aria-expanded="true"] .burger::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+
+    .side-nav-panel {
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(11, 61, 145, 0.18);
+      padding: 0.55rem;
+      min-width: 13.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .side-nav.open .side-nav-panel {
+      display: flex;
+    }
+
+    .side-nav-panel a {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: 0.55rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+    }
+
+    .side-nav-panel a:hover,
+    .side-nav-panel a:focus-visible {
+      color: var(--navy);
+      background: var(--blue-soft);
+      border-color: var(--line);
+      outline: none;
+    }
+
+    .side-nav-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 85;
+      background: rgba(26, 43, 60, 0.18);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: none;
+    }
+
+    body.side-nav-open .side-nav-backdrop {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -1011,6 +1133,19 @@
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite">복사됐어요!</div>
+
+  <button type="button" class="side-nav-backdrop" id="side-nav-backdrop" aria-label="메뉴 닫기" tabindex="-1"></button>
+  <nav class="side-nav" id="side-nav" aria-label="바로가기 메뉴">
+    <div class="side-nav-panel" id="side-nav-panel" hidden>
+      <a href="#gallery">명화 스타일</a>
+      <a href="#bg-prompts">이야기배경 이미지 만들기</a>
+      <a href="#char-prompts">캐릭터만들기</a>
+      <a href="#story-prompts">동화책만들기</a>
+    </div>
+    <button type="button" class="side-nav-toggle" id="side-nav-toggle" aria-expanded="false" aria-controls="side-nav-panel" aria-label="메뉴 열기">
+      <span class="burger" aria-hidden="true"></span>
+    </button>
+  </nav>
 
   <script>
     const styles = [
@@ -2168,6 +2303,37 @@
     renderCharCards();
     renderStorySteps();
     renderStoryForm();
+
+    /* —— 오른쪽 바로가기 내비 —— */
+    const sideNav = document.getElementById("side-nav");
+    const sideNavToggle = document.getElementById("side-nav-toggle");
+    const sideNavPanel = document.getElementById("side-nav-panel");
+    const sideNavBackdrop = document.getElementById("side-nav-backdrop");
+
+    function setSideNavOpen(open) {
+      sideNav.classList.toggle("open", open);
+      document.body.classList.toggle("side-nav-open", open);
+      sideNavToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      sideNavToggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      sideNavPanel.hidden = !open;
+    }
+
+    sideNavToggle.addEventListener("click", () => {
+      setSideNavOpen(!sideNav.classList.contains("open"));
+    });
+
+    sideNavBackdrop.addEventListener("click", () => setSideNavOpen(false));
+
+    sideNavPanel.addEventListener("click", (e) => {
+      if (e.target.closest("a")) setSideNavOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && sideNav.classList.contains("open")) {
+        setSideNavOpen(false);
+        sideNavToggle.focus();
+      }
+    });
   </script>
 </body>
 </html>
