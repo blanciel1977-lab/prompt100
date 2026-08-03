@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="�tl � ��| |줸">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a237e"/>
+      <stop offset="55%" stop-color="#5c6bc0"/>
+      <stop offset="100%" stop-color="#ef5350"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="url(#sky)"/>
+  <circle cx="520" cy="90" r="48" fill="#ffeb3b" opacity="0.95"/>
+  <circle cx="120" cy="70" r="6" fill="#fff9c4"/>
+  <circle cx="200" cy="40" r="4" fill="#fff"/>
+  <circle cx="300" cy="55" r="5" fill="#fffde7"/>
+  <!-- village -->
+  <rect x="40" y="300" width="70" height="50" fill="#c62828"/>
+  <polygon points="40,300 75,270 110,300" fill="#4e342e"/>
+  <rect x="130" y="310" width="55" height="40" fill="#1565c0"/>
+  <polygon points="130,310 157,285 185,310" fill="#37474f"/>
+  <rect x="200" y="295" width="60" height="55" fill="#6a1b9a"/>
+  <polygon points="200,295 230,265 260,295" fill="#263238"/>
+  <!-- floating goat -->
+  <ellipse cx="420" cy="200" rx="55" ry="35" fill="#81c784" transform="rotate(-15 420 200)"/>
+  <circle cx="470" cy="175" r="22" fill="#a5d6a7"/>
+  <ellipse cx="485" cy="168" rx="8" ry="18" fill="#66bb6a" transform="rotate(20 485 168)"/>
+  <!-- floating person with violin -->
+  <ellipse cx="280" cy="180" rx="28" ry="50" fill="#e91e63" transform="rotate(25 280 180)"/>
+  <circle cx="255" cy="140" r="20" fill="#ffccbc"/>
+  <rect x="300" y="160" width="12" height="55" fill="#5d4037" transform="rotate(35 306 187)"/>
+  <ellipse cx="330" cy="155" rx="22" ry="14" fill="#8d6e63" transform="rotate(35 330 155)"/>
+  <!-- bouquet -->
+  <circle cx="160" cy="200" r="18" fill="#f44336"/>
+  <circle cx="175" cy="185" r="14" fill="#e91e63"/>
+  <circle cx="145" cy="185" r="12" fill="#ffeb3b"/>
+  <line x1="160" y1="218" x2="160" y2="260" stroke="#2e7d32" stroke-width="4"/>
+  <!-- floating house -->
+  <g transform="translate(480 300) rotate(-12)">
+    <rect width="50" height="40" fill="#fff59d"/>
+    <polygon points="0,0 25,-22 50,0" fill="#bf360c"/>
+  </g>
+  <text x="20" y="460" font-family="Georgia, serif" font-size="18" fill="rgba(255,255,255,0.85)">Chagall-inspired � educational illustration</text>
+</svg>
